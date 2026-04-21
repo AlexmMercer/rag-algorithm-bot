@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     llm_api_key: str = Field(default="", description="LLM API key")
 
     prompt_path: str = Field(
-        default="prompts/default.txt",
-        description="Path to the prompt template file",
+        default="prompts/system.md",
+        description="Path to the system prompt file (markdown)",
     )
 
 

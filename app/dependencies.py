@@ -1,7 +1,7 @@
 from functools import lru_cache
-from pathlib import Path
 
 from app.clients.llm import LLMClient
+from app.prompt_loader import load_prompt
 from app.settings import Settings
 
 
@@ -12,10 +12,7 @@ def get_settings() -> Settings:
 
 def get_llm_client() -> LLMClient:
     settings = get_settings()
-    system_prompt_path = Path(settings.prompt_path)
-    if not system_prompt_path.is_file():
-        raise FileNotFoundError(f"System prompt file not found: {settings.prompt_path}")
-    system_prompt = system_prompt_path.read_text(encoding="utf-8")
+    system_prompt = load_prompt(settings.prompt_path)
     return LLMClient(
         host=settings.llm_host,
         api_key=settings.llm_api_key,
